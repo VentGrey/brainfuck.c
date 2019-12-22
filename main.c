@@ -22,12 +22,18 @@ int main(int argc, char *argv[]) {
 
 int interpreter(FILE *src) {
     char c;
-
     int mem = 0;
     char memory[3001];
 
-    while ((c = fgetc(source)) != EOF) {
+    fseek(src, 0, SEEK_END);
 
+    int src_len = ftell(src);
+    char *source = (char*)malloc(src_len);
+    rewind(src);
+
+    for (int i = 0; i < src_len; i++) {
+        source[i] = fgetc(src);
     }
+
     return 0;
 }
