@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
 int interpreter(FILE *src) {
     char c;
-    int mem = 0;
+    int mem = 0, code = 0;
     char memory[3001];
 
     fseek(src, 0, SEEK_END);
@@ -33,6 +33,30 @@ int interpreter(FILE *src) {
 
     for (int i = 0; i < src_len; i++) {
         source[i] = fgetc(src);
+    }
+
+    while (code < src_len) {
+        char ch = source[code];
+
+        if (c == '.') {
+            printf("%c", memory[mem]);
+        }
+
+        if (c == '+') {
+            memory[mem]++;
+        }
+
+        if (c == '-') {
+            memory[mem]--;
+        }
+
+        if (c == '>') {
+            mem++;
+        }
+
+        if (c == '<') {
+            mem--;
+        }
     }
 
     return 0;
