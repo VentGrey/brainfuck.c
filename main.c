@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
     FILE *fp = fopen(argv[1], "r");
 
     if (!fp) {
-        fprintf(stderr, "Could not open brainfuck file %s\n", argv[1]);
+        fprintf(stderr, "Could not open brainfuck file %s :(\n", argv[1]);
         exit(2);
     }
 
@@ -35,26 +35,30 @@ int interpreter(FILE *src) {
         source[i] = fgetc(src);
     }
 
-    while (code < src_len) {
+    while (code >= 0 && code < src_len) {
         char ch = source[code];
 
-        if (c == '.') {
+        if (ch == '.') {
             printf("%c", memory[mem]);
         }
 
-        if (c == '+') {
+        if (ch == ',') {
+            memory[mem] = fgetc(stdin);
+        }
+
+        if (ch == '+') {
             memory[mem]++;
         }
 
-        if (c == '-') {
+        if (ch == '-') {
             memory[mem]--;
         }
 
-        if (c == '>') {
+        if (ch == '>') {
             mem++;
         }
 
-        if (c == '<') {
+        if (ch == '<') {
             mem--;
         }
     }
